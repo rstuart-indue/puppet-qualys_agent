@@ -27,10 +27,5 @@ class qualys_agent::service {
       ],
     }
 
-    # Do not create an ordering dependency if we are removing the agent
-    $service_dep = $qualys_agent::ensure ? {
-      present => Service['qualys_agent'],
-      absent  => undef,
-    }
   }
 }
