@@ -26,6 +26,5 @@ class qualys_agent::service {
         $qualys_agent::package::package_dep,
       ],
     }
-
   }
 }
