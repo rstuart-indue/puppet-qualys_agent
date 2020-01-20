@@ -23,6 +23,28 @@ class qualys_agent::config {
     $qualys_agent::user::group_dep,
   ]
 
+  if $qualys_agent::proxy_url {
+    case $facts['os']['family'] {
+      'RedHat': {
+        file { '/etc/sysconfig/qualys-cloud-agent':
+          content => "qualys_https_proxy=${qualys_agent::proxy_url}\n",
+        }
+      }
+      'Debian': {
+        file { '/etc/default/qualys-cloud-agent':
+          content => "qualys_https_proxy=${qualys_agent::proxy_url}\n",
+        }
+      }
+      'windows': {
+        #exec { "C:\Program Files\Qualys\QualysAgent\QualysProxy.exe /u ${qualys_agent::proxy_url}":
+        #}
+      }
+      default: {
+        fail "Unsupported ${qualys_agent::proxy_url} on OS: ${facts['os']['family']}"
+      }
+    }
+  }
+
   file { 'qualys_config':
     ensure    => $ensure,
     content   => epp('qualys_agent/qualys-cloud-agent.conf.epp', {

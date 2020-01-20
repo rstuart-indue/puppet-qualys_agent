@@ -141,6 +141,7 @@ class qualys_agent (
   String $sudo_user,
   Integer $use_audit_dispatcher,
   Integer $use_sudo,
+  Optional[String] $proxy_url,
 ) {
 
   # Protect against an bad setting for filesystem paths
