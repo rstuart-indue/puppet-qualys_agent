@@ -64,7 +64,7 @@ class qualys_agent::config {
       user                 => $qualys_agent::agent_user,
       user_group           => $qualys_agent::agent_group,
     }),
-    mode      => '0600',
+    mode      => '0640',
     path      => "${qualys_agent::conf_dir}/qualys-cloud-agent.conf",
     owner     => $qualys_agent::owner,
     group     => $qualys_agent::group,

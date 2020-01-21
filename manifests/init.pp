@@ -167,11 +167,11 @@ class qualys_agent (
     $owner = 'root'
   #}
 
-  #if $qualys_agent::agent_group {
-    #$group = $qualys_agent::agent_group
-  #} else {
+  if $qualys_agent::agent_group {
+    $group = $qualys_agent::agent_group
+  } else {
     $group = 'root'
-  #}
+  }
 
   contain 'qualys_agent::user'
   contain 'qualys_agent::package'
