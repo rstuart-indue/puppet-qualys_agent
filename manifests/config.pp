@@ -64,7 +64,7 @@ class qualys_agent::config {
       user                 => $qualys_agent::agent_user,
       user_group           => $qualys_agent::agent_group,
     }),
-    mode      => '0640',
+    mode      => '0600',
     path      => "${qualys_agent::conf_dir}/qualys-cloud-agent.conf",
     owner     => $qualys_agent::owner,
     group     => $qualys_agent::group,
@@ -104,9 +104,9 @@ class qualys_agent::config {
 
   file {  'qualys_hostid':
     ensure  => $ensure,
-    mode    => '0640',
+    mode    => '0660',
     path    => $qualys_agent::hostid_path,
-    owner   => $qualys_agent::owner,
+    owner   => 'root',
     group   => $qualys_agent::group,
     require => $requires,
   }
