@@ -107,7 +107,7 @@ class qualys_agent::config {
     mode    => '0660',
     path    => $qualys_agent::hostid_path,
     owner   => 'root',
-    group   => $qualys_agent::group,
+    group   => $qualys_agent::agent_group,
     require => $requires,
   }
 
