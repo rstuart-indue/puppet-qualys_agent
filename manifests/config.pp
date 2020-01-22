@@ -36,7 +36,7 @@ class qualys_agent::config {
         }
       }
       'windows': {
-        #exec { "C:\Program Files\Qualys\QualysAgent\QualysProxy.exe /u ${qualys_agent::proxy_url}":
+        #exec { "\"C:\\Program Files\\Qualys\\QualysAgent\\QualysProxy.exe\" /u ${qualys_agent::proxy_url}":
         #}
       }
       default: {
