@@ -67,7 +67,7 @@ class qualys_agent::config {
     mode      => '0640',
     path      => "${qualys_agent::conf_dir}/qualys-cloud-agent.conf",
     owner     => $qualys_agent::owner,
-    group     => $qualys_agent::group,
+    group     => $qualys_agent::agent_group,
     show_diff => true,
     require   => $requires,
   }
@@ -97,7 +97,7 @@ class qualys_agent::config {
     mode      => '0640',
     path      => "${qualys_agent::conf_dir}/qualys-cloud-agent.properties",
     owner     => $qualys_agent::owner,
-    group     => $qualys_agent::group,
+    group     => $qualys_agent::agent_group,
     show_diff => true,
     require   => $requires,
   }
