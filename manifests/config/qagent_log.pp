@@ -9,10 +9,10 @@ class qualys_agent::config::qagent_log {
       channel_name => $qualys_agent::config::channel_name,
       log_path     => "${qualys_agent::log_file_dir}/qualys-cloud-agent.log",
     }),
+    owner   => $qualys_agent::owner,
     group   => $qualys_agent::group,
     mode    => '0600',
     path    => "${qualys_agent::conf_dir}/qagent-log.conf",
-    owner   => $qualys_agent::owner,
     require => $qualys_agent::config::requires,
   }
 

@@ -64,10 +64,10 @@ class qualys_agent::config {
       user                 => $qualys_agent::agent_user,
       user_group           => $qualys_agent::agent_group,
     }),
-    mode      => '0640',
     path      => "${qualys_agent::conf_dir}/qualys-cloud-agent.conf",
     owner     => $qualys_agent::owner,
     group     => $qualys_agent::agent_group,
+    mode      => '0640',
     show_diff => true,
     require   => $requires,
   }
@@ -94,20 +94,20 @@ class qualys_agent::config {
       user                 => $qualys_agent::agent_user,
       user_group           => $qualys_agent::agent_group,
     }),
-    mode      => '0640',
     path      => "${qualys_agent::conf_dir}/qualys-cloud-agent.properties",
     owner     => $qualys_agent::owner,
     group     => $qualys_agent::agent_group,
+    mode      => '0640',
     show_diff => true,
     require   => $requires,
   }
 
   file {  'qualys_hostid':
     ensure  => $ensure,
-    mode    => '0660',
     path    => $qualys_agent::hostid_path,
     owner   => 'root',
     group   => $qualys_agent::agent_group,
+    mode    => '0660',
     require => $requires,
   }
 

@@ -161,17 +161,17 @@ class qualys_agent (
     fail('log_file_dir is set to /.  Installation cannot continue.')
   }
 
-  #if $qualys_agent::agent_user {
-    #$owner = $qualys_agent::agent_user
-  #} else {
+  if $qualys_agent::agent_user {
+    $owner = $qualys_agent::agent_user
+  } else {
     $owner = 'root'
-  #}
+  }
 
-  #if $qualys_agent::agent_group {
-  #  $group = $qualys_agent::agent_group
-  #} else {
+  if $qualys_agent::agent_group {
+    $group = $qualys_agent::agent_group
+  } else {
     $group = 'root'
-  #}
+  }
 
   contain 'qualys_agent::user'
   contain 'qualys_agent::package'
