@@ -1,6 +1,6 @@
 # qualys_agent
 
-[![CircleCI](https://circleci.com/gh/broadinstitute/puppet-qualys_agent/tree/master.svg?style=svg)](https://circleci.com/gh/broadinstitute/puppet-qualys_agent)
+[![CircleCI](https://circleci.com/gh/broadinstitute/puppet-qualys_agent/tree/main.svg?style=svg)](https://circleci.com/gh/broadinstitute/puppet-qualys_agent)
 [![Puppet Forge](https://img.shields.io/puppetforge/dt/broadinstitute/qualys_agent.svg)](https://forge.puppet.com/broadinstitute/qualys_agent)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/broadinstitute/qualys_agent.svg)](https://forge.puppet.com/broadinstitute/qualys_agent)
 [![Puppet Forge](https://img.shields.io/puppetforge/f/broadinstitute/qualys_agent.svg)](https://forge.puppet.com/broadinstitute/qualys_agent)
@@ -123,6 +123,10 @@ The directory where the `qualys-cloud-agent.conf` file will exist. **Default: /e
 
 The Customer ID you receive from Qualys for reporting back to their API. **(required)** **Default: undef**
 
+#### `env_dir`
+
+The directory containing the environment variable file `qualys-cloud-agent`. **Default: /etc/sysconfig**
+
 #### `hostid_path`
 
 The full filesystem path to the hostid file. **Default: /etc/qualys/hostid**
@@ -130,6 +134,10 @@ The full filesystem path to the hostid file. **Default: /etc/qualys/hostid**
 #### `hostid_search_dir`
 
 The HostIdSearchDir value in `qualys-cloud-agent.conf`. **Default: undef**
+
+#### `https_proxy`
+
+The https proxy to be used for all commands performed by the Cloud Agent. **Default: undef**
 
 #### `log_dest_type`
 
@@ -171,6 +179,10 @@ The name of the package to install. **Default: qualys-cloud-agent**
 #### `process_priority`
 
 The ProcessPriority value in `qualys-cloud-agent.conf`. **Default: 0**
+
+#### `qualys_https_proxy`
+
+The https proxy to be used by the Cloud Agent to communicate with qualys cloud platform. **Default: undef**
 
 #### `request_timeout`
 

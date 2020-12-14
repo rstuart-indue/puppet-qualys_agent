@@ -30,11 +30,17 @@
 # * `customer_id`
 # The Customer ID you receive from Qualys for reporting back to their API (required)
 #
+# * `env_dir`
+# The directory in which to place the environment variable file qualys-cloud-agent.  (Default: /etc/sysconfig)
+#
 # * `hostid_path`
 # The full filesystem path to the hostid file (Default: /etc/qualys/hostid)
 #
 # * `hostid_search_dir`
 # The HostIdSearchDir value in qualys-cloud-agent.conf (Default: undef)
+#
+# * `https_proxy`
+# The https proxy to be used for all commands performed by the Cloud Agent. (Default: undef)
 #
 # * `log_dest_type`
 # The log type (file or syslog) (Default: file)
@@ -43,8 +49,17 @@
 # The LogFileDir value in qualys-cloud-agent.conf
 # The directory in which the log files should be written (Default: /var/log/qualys)
 #
+# * `log_group`
+# The group that should own files in the log directory (Default: $agent_group)
+#
 # * `log_level`
 # The LogLevel value in qualys-cloud-agent.conf (Default: 3)
+#
+# * `log_mode`
+# The file mode for log files in $log_file_dir (Default: 0600)
+#
+# * `log_owner`
+# The user that should own files in the log directory (Default: $agent_user)
 #
 # * `manage_group`
 # Boolean to determine whether the group is managed by Puppet or not (Default: true)
@@ -67,6 +82,9 @@
 #
 # * `process_priority`
 # The ProcessPriority value in qualys-cloud-agent.conf (Default: 0)
+#
+# * `qualys_https_proxy`
+# The https proxy to be used by the Cloud Agent to communicate with qualys cloud platform. (Default: undef)
 #
 # * `request_timeout`
 # The RequestTimeOut value in qualys-cloud-agent.conf (Default: 600)
@@ -121,11 +139,16 @@ class qualys_agent (
   Integer $cmd_stdout_size,
   Stdlib::Absolutepath $conf_dir,
   String $customer_id,
+  Stdlib::Absolutepath $env_dir,
   Stdlib::Absolutepath $hostid_path,
   Optional[Stdlib::Absolutepath] $hostid_search_dir,
+  Optional[String] $https_proxy,
   Enum['file', 'syslog'] $log_dest_type,
   Stdlib::Absolutepath $log_file_dir,
+  Optional[String] $log_group,
   Integer $log_level,
+  String $log_mode,
+  Optional[String] $log_owner,
   Boolean $manage_group,
   Boolean $manage_package,
   Boolean $manage_service,
@@ -133,6 +156,7 @@ class qualys_agent (
   String $package_ensure,
   String $package_name,
   Integer $process_priority,
+  Optional[String] $qualys_https_proxy,
   Integer $request_timeout,
   Boolean $service_enable,
   Enum['running', 'stopped'] $service_ensure,
@@ -161,16 +185,28 @@ class qualys_agent (
     fail('log_file_dir is set to /.  Installation cannot continue.')
   }
 
+  if $qualys_agent::agent_group {
+    $group = $qualys_agent::agent_group
+  } else {
+    $group = 'root'
+  }
+
   if $qualys_agent::agent_user {
     $owner = $qualys_agent::agent_user
   } else {
     $owner = 'root'
   }
 
-  if $qualys_agent::agent_group {
-    $group = $qualys_agent::agent_group
+  if $qualys_agent::log_group {
+    $log_group_final = $qualys_agent::log_group
   } else {
-    $group = 'root'
+    $log_group_final = $group
+  }
+
+  if $qualys_agent::log_owner {
+    $log_owner_final = $qualys_agent::log_owner
+  } else {
+    $log_owner_final = $owner
   }
 
   contain 'qualys_agent::user'
